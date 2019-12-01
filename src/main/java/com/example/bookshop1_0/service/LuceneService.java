@@ -26,11 +26,11 @@ import java.util.List;
 public class LuceneService {
     @Autowired
     LuceneBean luceneBean;
-    IndexWriter writer = null;
-    Directory directory = luceneBean.getDirectory();
-    Analyzer analyzer = luceneBean.getAnalyzer();
-    public void update(String bookId, BooksEntity book) {
 
+    public void update(String bookId, BooksEntity book) {
+        IndexWriter writer = null;
+        Directory directory = luceneBean.getDirectory();
+        Analyzer analyzer = luceneBean.getAnalyzer();
         IndexWriterConfig conf = new IndexWriterConfig(analyzer);
         conf.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
         try {
@@ -54,7 +54,9 @@ public class LuceneService {
     }
 
     public void add(BooksEntity book) {
-
+        IndexWriter writer = null;
+        Directory directory = luceneBean.getDirectory();
+        Analyzer analyzer = luceneBean.getAnalyzer();
         IndexWriterConfig conf = new IndexWriterConfig(analyzer);
         conf.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
         try {
@@ -76,8 +78,10 @@ public class LuceneService {
         }
     }
 
-    public void delete(String bookId){
-
+    public void delete(String bookId) {
+        IndexWriter writer = null;
+        Directory directory = luceneBean.getDirectory();
+        Analyzer analyzer = luceneBean.getAnalyzer();
         IndexWriterConfig conf = new IndexWriterConfig(analyzer);
         conf.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
         try {
@@ -95,7 +99,9 @@ public class LuceneService {
      * 清空回收站,也就是不能够恢复数据啦
      */
     public void forceMerge() {
-
+        IndexWriter writer = null;
+        Directory directory = luceneBean.getDirectory();
+        Analyzer analyzer = luceneBean.getAnalyzer();
         IndexWriterConfig conf = new IndexWriterConfig(analyzer);
         conf.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
         try {
@@ -108,8 +114,10 @@ public class LuceneService {
         }
     }
 
-    public void deleteAll(){
-
+    public void deleteAll() {
+        IndexWriter writer = null;
+        Directory directory = luceneBean.getDirectory();
+        Analyzer analyzer = luceneBean.getAnalyzer();
         IndexWriterConfig conf = new IndexWriterConfig(analyzer);
         conf.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
         try {
@@ -124,9 +132,11 @@ public class LuceneService {
 
     public List<BooksEntity> query(String text) {
         List<BooksEntity> books = new ArrayList<>();
-        String fields[]={"author", "publisher", "bookname"};
+        String fields[] = {"author", "publisher", "bookname"};
         try {
-
+            IndexWriter writer = null;
+            Directory directory = luceneBean.getDirectory();
+            Analyzer analyzer = luceneBean.getAnalyzer();
             IndexReader reader = DirectoryReader.open(directory);
             IndexSearcher searcher = new IndexSearcher(reader);
             QueryParser parser = new MultiFieldQueryParser(fields, analyzer);

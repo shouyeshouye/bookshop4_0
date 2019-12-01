@@ -1,6 +1,7 @@
 package com.example.bookshop1_0.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 public class OrdersEntity {
@@ -9,9 +10,9 @@ public class OrdersEntity {
     private Double amount;
     private String phone;
     private String address;
-    private Timestamp createTime;
-    private String status;
-    private Timestamp endtime;
+    private Date createTime;
+    private Integer status;
+    private Date endtime;
     private String log;
 
 
@@ -55,27 +56,27 @@ public class OrdersEntity {
         this.address = address;
     }
 
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public Timestamp getEndtime() {
+    public Date getEndtime() {
         return endtime;
     }
 
-    public void setEndtime(Timestamp endtime) {
+    public void setEndtime(Date endtime) {
         this.endtime = endtime;
     }
 

@@ -31,28 +31,8 @@
             memoryStoreEvictionPolicy="LRU">
         <!--<persistence strategy="localTempSwap"/>-->
     </defaultCache>
-    <!-- 设定缓存的默认数据过期策略 -->
-    <cache name="shiro"
-           maxElementsInMemory="10000"
-           timeToIdleSeconds="120"
-           timeToLiveSeconds="86400"
-           maxElementsOnDisk="10000000"
-           diskExpiryThreadIntervalSeconds="120"
-           memoryStoreEvictionPolicy="LRU">
-        <!-- <persistence strategy="localTempSwap"/>-->
-    </cache>
     <!-- shiro-activeSessionCache活跃用户session缓存策略 -->
     <cache name="shiro-activeSessionCache"
-           maxElementsInMemory="10000"
-           timeToIdleSeconds="86400"
-           timeToLiveSeconds="86400"
-           maxElementsOnDisk="10000000"
-           diskExpiryThreadIntervalSeconds="120"
-           memoryStoreEvictionPolicy="LRU">
-        <!-- <persistence strategy="localTempSwap"/>-->
-    </cache>
-    <!-- sessionIdCache记录登录过的session和sessionId -->
-    <cache name="sessionId-session"
            maxElementsInMemory="10000"
            timeToIdleSeconds="86400"
            timeToLiveSeconds="86400"

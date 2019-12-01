@@ -1,10 +1,6 @@
 package com.example.bookshop1_0.config;
 
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import javax.servlet.Filter;
 import com.example.bookshop1_0.filter.KickoutSessionControlFilter;
 import com.example.bookshop1_0.shiro.EnceladusShiroRealm;
 import com.example.bookshop1_0.shiro.PasswordHelper;
@@ -17,12 +13,18 @@ import org.apache.shiro.io.ResourceUtils;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.servlet.Cookie;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.servlet.Filter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 @Log4j2
 @Configuration
 public class ShiroConfig {
@@ -33,11 +35,11 @@ public class ShiroConfig {
 
         Map<String, String> filterChainDefinitionMap = new HashMap<String, String>();
 
-        shiroFilterFactoryBean.setLoginUrl("/doLogin");
-        shiroFilterFactoryBean.setSuccessUrl("/loginSuccess");
+        shiroFilterFactoryBean.setLoginUrl("/loginPage");
+        //shiroFilterFactoryBean.setSuccessUrl("/loginSuccess");
         shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");
 
-        filterChainDefinitionMap.put("/doLogin", "kickout,authc");
+        filterChainDefinitionMap.put("/doLogin", "kickout");
         filterChainDefinitionMap.put("/admin/*", "authc,roles[admin],kickout");
         filterChainDefinitionMap.put("/user/*", "authc,roles[user,admin],kickout");
         filterChainDefinitionMap.put("/success", "kickout,authc");
@@ -71,6 +73,12 @@ public class ShiroConfig {
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(shiroRealm());
+        // //注入ehcache缓存管理器;
+        securityManager.setCacheManager(cacheManager());
+        // //注入session管理器;
+        securityManager.setSessionManager(sessionManager());
+        //注入Cookie记住我管理器
+        securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
     }
 
@@ -78,12 +86,14 @@ public class ShiroConfig {
     public PasswordHelper passwordHelper() {
         return new PasswordHelper();
     }
+
     /**
      * 限制同一账号登录同时登录人数控制
+     *
      * @return
      */
     @Bean
-    public KickoutSessionControlFilter kickoutSessionControlFilter(){
+    public KickoutSessionControlFilter kickoutSessionControlFilter() {
         log.info("kickoutSessionControlFilter()--------------------------------");
         KickoutSessionControlFilter kickoutSessionControlFilter = new KickoutSessionControlFilter();
         //使用cacheManager获取相应的cache来缓存用户登录的会话；用于保存用户—会话之间的关系的；
@@ -96,20 +106,24 @@ public class ShiroConfig {
         kickoutSessionControlFilter.setMaxSession(1);
         //被踢出后重定向到的地址；
         kickoutSessionControlFilter.setKickoutUrl("/kickout");
+        //用于根据会话ID，获取会话进行踢出操作的；
+        kickoutSessionControlFilter.setSessionManager(sessionManager());
         return kickoutSessionControlFilter;
     }
+
     /**
      * ehcache缓存管理器；shiro整合ehcache：
      * 通过安全管理器：securityManager
      * 单例的cache防止热部署重启失败
+     *
      * @return EhCacheManager
      */
     @Bean
-    public EhCacheManager cacheManager(){
+    public EhCacheManager cacheManager() {
 
         EhCacheManager ehcache = new EhCacheManager();
-        CacheManager cacheManager = CacheManager.getCacheManager("shiro");
-        if(cacheManager == null){
+        CacheManager cacheManager = CacheManager.getCacheManager("shiro-activeSessionCache");
+        if (cacheManager == null) {
             try {
                 cacheManager = CacheManager.create(ResourceUtils.getInputStreamForPath("classpath:config/ehcache.xml"));
 
@@ -120,22 +134,23 @@ public class ShiroConfig {
         ehcache.setCacheManager(cacheManager);
         return ehcache;
     }
+
     /**
-     *
+     * @return
      * @描述：sessionManager添加session缓存操作DAO
      * @创建人：wyait
      * @创建时间：2018年4月24日 下午8:13:52
-     * @return
      */
     @Bean
     public DefaultWebSessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        //sessionManager.setCacheManager(cacheManager());
         sessionManager.setSessionIdCookieEnabled(true);
         sessionManager.setSessionDAO(enterCacheSessionDAO());
         sessionManager.setSessionIdCookie(sessionIdCookie());
+
         return sessionManager;
     }
+
     /**
      * EnterpriseCacheSessionDAO shiro sessionDao层的实现；
      * 提供了缓存功能的会话维护，默认情况下使用MapCache实现，内部使用ConcurrentHashMap保存缓存的会话。
@@ -149,23 +164,51 @@ public class ShiroConfig {
         enterCacheSessionDAO.setActiveSessionsCacheName("shiro-activeSessionCache");
         return enterCacheSessionDAO;
     }
+
     /**
-     *
+     * @return
      * @描述：自定义cookie中session名称等配置
      * @创建人：wyait
      * @创建时间：2018年5月8日 下午1:26:23
-     * @return
      */
     @Bean
     public SimpleCookie sessionIdCookie() {
         //DefaultSecurityManager
         SimpleCookie simpleCookie = new SimpleCookie();
-        //sessionManager.setCacheManager(cacheManager());
+
         //如果在Cookie中设置了"HttpOnly"属性，那么通过程序(JS脚本、Applet等)将无法读取到Cookie信息，这样能有效的防止XSS攻击。
         simpleCookie.setHttpOnly(true);
         simpleCookie.setName("shiro.sesssion");
         //单位秒
         simpleCookie.setMaxAge(86400);
         return simpleCookie;
+    }
+
+    /**
+     * 配置cookie记住我管理器
+     *
+     * @return
+     */
+    @Bean
+    public CookieRememberMeManager rememberMeManager() {
+        //logger.debug("配置cookie记住我管理器！");
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(remeberMeCookie());
+        return cookieRememberMeManager;
+    }
+
+    /**
+     * 设置记住我cookie过期时间
+     *
+     * @return
+     */
+    @Bean
+    public SimpleCookie remeberMeCookie() {
+        //logger.debug("记住我，设置cookie过期时间！");
+        //cookie名称;对应前端的checkbox的name = rememberMe
+        SimpleCookie scookie = new SimpleCookie("rememberMe");
+        //记住我cookie生效时间30天 ,单位秒  [10天]
+        scookie.setMaxAge(864000);
+        return scookie;
     }
 }

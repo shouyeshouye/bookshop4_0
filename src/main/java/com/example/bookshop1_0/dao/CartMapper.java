@@ -19,10 +19,15 @@ public interface CartMapper {
     @Delete("delete from cart where userName=#{userName}")
     int clearCart(@Param("userName")String userName);
 
+    @Delete("delete from cart where id=#{id}")
+    int deleteById(@Param("id")int id);
+
     @Select("select * from cart")
     List<CartEntity> queryAll();
 
     @Select("select * from cart where id=#{id}")
-    List<CartEntity> queryById(@Param("id")int id);
+    CartEntity queryById(@Param("id")int id);
+    @Select("select * from cart where id=#{id} and userName=#{userName}")
+    CartEntity queryByIdandUserneme(@Param("id")int id, @Param("userName") String username);
 
 }

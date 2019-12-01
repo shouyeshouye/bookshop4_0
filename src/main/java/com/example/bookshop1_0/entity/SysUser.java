@@ -1,7 +1,7 @@
 package com.example.bookshop1_0.entity;
 
-import java.util.List;
 import java.io.Serializable;
+import java.util.List;
 
 
 public class SysUser implements Serializable {
@@ -10,6 +10,8 @@ public class SysUser implements Serializable {
     private String username;
     private String password;
     private String salt;
+    private String phone;
+    private String address;
     private List<SysRole> roles;
 
     public Integer getId() {
@@ -55,6 +57,14 @@ public class SysUser implements Serializable {
     public String getCredentialsSalt() {
         return username + salt + salt;
     }
+
+    public String getAddress() { return address; }
+
+    public void setAddress(String address) { this.address = address; }
+
+    public String getPhone() { return phone; }
+
+    public void setPhone(String phone) { this.phone = phone; }
 
     @Override
     public String toString() {

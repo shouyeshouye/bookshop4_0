@@ -8,6 +8,8 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.DefaultSessionKey;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
@@ -31,6 +33,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
 
     private Cache<String, Deque<Serializable>> cache;
     private CacheManager cacheManager;
+    private SessionManager sessionManager;
 
     public void setKickoutUrl(String kickoutUrl) {
         this.kickoutUrl = kickoutUrl;
@@ -44,6 +47,13 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
         this.maxSession = maxSession;
     }
 
+    public SessionManager getSessionManager() {
+        return sessionManager;
+    }
+
+    public void setSessionManager(SessionManager sessionManager) {
+        this.sessionManager = sessionManager;
+    }
 
     public void setCacheManager(CacheManager cacheManager) {
         this.cacheManager = cacheManager;
@@ -80,14 +90,12 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
                 out(response, responseResult);
                 return false;
             } else {
-                log.info("第一次登陆return true");
+                log.info("新登录的用户放行让其进行登录操作！");
                 String username = request.getParameter("username");
                 log.info("===当前用户username：==" + username);
                 Serializable sessionId = session.getId();
                 log.info("===当前用户sessionId：==" + sessionId);
-                // 读取缓存用户 没有就存入
-                Deque<Serializable> deque = cache.get(username);
-                log.info("===当前deque：==" + deque);
+
                 return true;
             }
         }
@@ -133,14 +141,16 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
             cache.put(username, deque);
 
             // 获取被踢出的sessionId的session对象
-            Cache<Serializable, Session> sessionCache = cacheManager.getCache("sessionId-session");
-            Session kickoutSession = sessionCache.get(kickoutSessionId);
+            //Cache<Serializable, Session> sessionCache = cacheManager.getCache("sessionId-session");
+            //Session kickoutSession = sessionCache.get(kickoutSessionId);
+            Session kickoutSession = sessionManager
+                    .getSession(new DefaultSessionKey(kickoutSessionId));
             log.info(kickoutSession);
             if (kickoutSession != null) {
                 // 设置会话的kickout属性表示踢出了
                 log.info("被踢出了");
                 kickoutSession.setAttribute("kickout", true);
-                sessionCache.remove(kickoutSessionId);
+                //sessionCache.remove(kickoutSessionId);
             }
         }
 

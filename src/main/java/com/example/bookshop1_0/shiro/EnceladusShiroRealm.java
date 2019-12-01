@@ -1,12 +1,9 @@
 package com.example.bookshop1_0.shiro;
 
-import com.example.bookshop1_0.dao.RoleMapper;
 import com.example.bookshop1_0.dao.UserMapper;
-import com.example.bookshop1_0.entity.SysPermission;
 import com.example.bookshop1_0.entity.SysRole;
 import com.example.bookshop1_0.entity.SysUser;
-
-import com.example.bookshop1_0.service.userService;
+import com.example.bookshop1_0.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -19,13 +16,12 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
 public class EnceladusShiroRealm extends AuthorizingRealm {
     @Autowired
-    userService userService;
+    UserService userService;
     @Autowired
     UserMapper userMapper;
 
@@ -35,11 +31,11 @@ public class EnceladusShiroRealm extends AuthorizingRealm {
         // User user=(User) principal.getPrimaryPrincipal();
         //String userName=(String) SecurityUtils.getSubject().getPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        String username= (String) principal.getPrimaryPrincipal();
+        String username = (String) principal.getPrimaryPrincipal();
         //查询数据库
         SysUser user = userService.findUserByName(username);
         //logger.info("##################执行Shiro权限授权##################user info is：{}" + JSONObject.toJSONString(user));
-//        Set<String> userPermissions = new HashSet<String>();
+//      Set<String> userPermissions = new HashSet<String>();
         Set<String> userRoles = new HashSet<String>();
         for (SysRole role : user.getRoles()) {
             userRoles.add(role.getRole());

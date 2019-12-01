@@ -85,7 +85,17 @@
             <artifactId>lucene-analyzers-smartcn</artifactId>
             <version>7.3.0</version>
         </dependency>
-
+        <!-- 官方SDK  https://mvnrepository.com/artifact/com.alipay.sdk/alipay-sdk-java -->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.4.27.ALL</version>
+        </dependency>
+        <dependency>
+            <groupId>vip.52itstyle</groupId>
+            <artifactId>alipay-trade-sdk</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
