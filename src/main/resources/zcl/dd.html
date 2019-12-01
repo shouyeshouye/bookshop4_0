@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <title>购物车</title>
+ <!--引用外部样式-->
+ <link type="text/css" rel="stylesheet"  href="css/basic.css">
+ <link type="text/css" rel="stylesheet"  href="css/web.css">
+ </head>
+ <body>
+
+<div id="TopMain">
+	<!-- 广告开始 -->
+	 <div id="topAdv"> 
+		<a href="#"> <img src="images/adv.jpg" /> </a> 
+		<img src="images/close.png"  class="close"/>
+	 </div>
+	<!-- 广告结束-->  
+
+	<!--Top开始-->
+	<div id="Top">
+		<div class="banner"><a href="#"><img src="images/gouwuche.png" /></a></div>
+		<!--search begin-->
+		<!--search end-->
+		<div class="user">
+			<!--用户登录前状态
+			<font><span class="iconfont">&#xe60b;</span><a href="">登录</a></font>
+			<font><span class="iconfont">&#xe60e;</span><a href="">注册</a></font>-->
+			
+
+			<!--用户登录后状态-->
+			您好！wlm123,欢迎你回来 <a href="" class="usertxt">用户中心</a>｜<a href="" class="usertxt">退出</a>
+
+			<font><span class="iconfont">&#xe646;</span><a href="">加入购车</a></font>
+		</div>
+	</div>
+	<!--Top结束-->
+</div>
+
+<!--网站导航开始  滚动到一定高，给他加上 class="gd"-->
+<div id="Logo" >
+
+</div>
+<!--网站导航结束-->
+
+
+
+<!--订单支付路径开始-->
+<div id="dd_address">
+	<ul>
+		<li>
+			<span class="but but_active">1</span>
+			<span class="txt txt_active">提交订单</span>
+			<span class="line line_active"></span>
+		</li>
+		<li>
+			<span class="but">2</span>
+			<span class="txt txt2">确认订单并支付</span>
+			<span class="line line2"></span>
+		</li>
+		<li class="last">
+			<span class="but">3</span>
+			<span class="txt">已完成</span>
+		</li>
+	</ul>
+</div>
+<!--订单支付路径结束-->
+
+
+<!--订单产品布局开始-->
+<div id="dd_List">
+	<!--标题部分-->
+	<ul class="ti">
+		<li ><input style="width: 25px; height: 19px; border: 2px white;" type="checkbox" id="chAll" onclick="checkAll()"/>全选</li>
+		<li class="first">商品信息</li>
+		<li>单价</li>
+		<li>购买数量</li>
+		<li>小计</li>
+		<li>操作</li>
+	<div style="clear:both"></div>
+	</ul>
+
+	<div id="list">
+
+	</div>
+</div>
+<!--订单产品布局结束-->
+
+
+<!--订单结算部分开始-->
+<div id="dd_End">
+	<p>购物金额总计 ￥<span id="goodall">0</span>元
+	<input type="button" value="清空购物车"  class="bnt_blue_1"/></p>
+
+	<p> 
+		<a href="" target="_blank"  class="go"><img src="images/20130425D_03.png" /></a>
+		<a href="dd_xq.html" class="end"><img src="images/20130425D_01.png" /></a>
+	</p>
+<div style="clear:both;" ></div>
+</div>
+<!--订单结算部分结束-->
+
+
+<!--网站底部开始-->
+<img src="images/f.jpg"  class="fbg"/>
+<div id="Footer2">
+	<dl class="first">
+		<dt><a href="#">关于我们</a></dt>
+		<dd><a href="#">诚聘英才</a></dd>
+		<dd><a href="#">品牌入驻</a></dd>
+		<dd><a href="#">友情链接</a></dd>
+	</dl>
+	<dl>
+		<dt><a href="#">关于我们</a></dt>
+		<dd><a href="#">诚聘英才</a></dd>
+		<dd><a href="#">品牌入驻</a></dd>
+		<dd><a href="#">友情链接</a></dd>
+	</dl>
+	<dl>
+		<dt>关于我们</dt>
+		<dd>诚聘英才</dd>
+		<dd>品牌入驻</dd>
+		<dd>友情链接</dd>
+	</dl>
+	<dl>
+		<dt>关于我们</dt>
+		<dd>诚聘英才</dd>
+		<dd>品牌入驻</dd>
+		<dd>友情链接</dd>
+	</dl>
+	<dl>
+		<dt>关于我们</dt>
+		<dd>诚聘英才</dd>
+		<dd>品牌入驻</dd>
+		<dd>友情链接</dd>
+	</dl>
+	<dl>
+		<dt>关于我们</dt>
+		<dd>诚聘英才</dd>
+		<dd>品牌入驻</dd>
+		<dd>友情链接</dd>
+	</dl>
+	<dl class="last">
+		<dt>客服在线</dt>
+		<dd>4006-600-000</dd>
+		<dd><img src="images/QQ.jpg" /></dd>
+	</dl>
+
+	<div style="clear:both"></div>
+</div>
+
+
+<p class="Copy">Copyright © 2013-2015 www.tanzhouedu.com All Rights Reserved 版权所有：湖南潭州教育咨询有限公司 备案号：备13016338号</p>
+<!--网站底部结束-->
+
+
+
+
+
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+
+
+<!--
+	1、在News大盒子里面，构建两个一样大小的长方形，一个用来设背景透明，一个利用绝定位，盖在透明
+	图层上面，用来放内容
+	2、利用 h3标签来制作标题部分（颜色，大小，字体类型，竖直居中，首行缩进text-indent:20px;）
+	3、利用 ul来制作新闻列表，文字竖直间距利用行高 line-height:30px;  给 ul添加对应的内边距，使文字与上右下左产生一定的间距。
+	4、给文字加上了 a标签超链接，如何优化我们代码，代码的性能,如果把常用样式，统一初始化，我们选择的是用标签来表达，而不是用 *
+-->
+
+ </body>
+
+<script>
+
+var noApplicationRecord = document.getElementById('list');
+var shopCar = [];
+
+
+	var data = [{
+		good_img:"images/bimg.png",
+		good_name:"生日蛋糕",
+		market_price:200,
+		good_num:1,
+		good_id:1
+	},
+	{
+		good_img:"images/bimg.png",
+		good_name:"生日蛋糕",
+		market_price:200,
+		good_num:1,
+		good_id:2
+	},
+	{
+		good_img:"images/bimg.png",
+		good_name:"生日",
+		market_price:200,
+		good_num:1,
+		good_id:3
+	}]
+
+//console.log(data);
+
+	//绘制单个div
+function setDiv(item){
+    var div = '<ul class="List"><li ><input style="width: 25px; height: 19px; border: 2px white;" type="checkbox" data-id= "' 
+	+ item.good_id
+	+'"name="ck"/></li><li class="first"><img src="'
+	+ item.good_img 
+	+ '" width="100" height="100"/><p>'
+	+ item.good_name
+	+ '</p></li><li>￥<span id="goodprice">'
+	+ item.market_price
+	+ '</span>元</li><li><input style="width: 25px; height: 19px; border: 2px white;" type="button" value="-" data-id="'
+	+ item.good_id
+	+ '" name = "sub"/><input style="text-align: center; width: 25px; height: 16px;" type="text" value="1" οnblur="checkNumber(this)" /><input style="width: 25px; height: 19px; border: 2px white;" type="button" value="+" data-id="'
+	+ item.good_id
+	+ '" name = "add"/></li><li><p>￥<span id="countall">'
+	+ item.market_price
+	+ '</span></p></li><li><a href="" class="f6">删除</a></li><div style="clear:both"></div></ul>' ;
+    return div
+}
+
+//循环加载到页面
+function getnoApplicationData(){
+    var html = ''
+    for(var i = 0;i<data.length;i++){
+        html += setDiv(data[i])
+    }
+    noApplicationRecord.innerHTML = html
+}
+
+window.onload = function(){
+	getnoApplicationData();
+	
+ }
+
+
+    var div1=document.getElementById('list');
+    var div2=document.getElementById('dd_End');
+    
+    
+
+	div1.addEventListener('click',function(e){
+		var target=e.target;
+		var priceNode=e.target.parentNode.parentNode.children[2].children[0];
+		var price=parseInt(priceNode.innerHTML);
+		var addupNode=e.target.parentNode.parentNode.children[4].children[0].children[0];
+		var addup=0;
+		var addallNode=div2.children[0].children[0];
+		var addall=parseInt(addallNode.innerHTML);
+
+		var id = parseInt(target.dataset.id);
+	
+		if(target.name=="sub"){
+			
+			console.log(parseInt(target.dataset.id));
+			if($(target).next().val()==''){
+				$(target).next().val(1);
+			}
+			if($(target).next().val()>1){
+				$(target).next().val($(target).next().val() -1) ;
+
+			}else{
+
+			}
+			$(target).next().val($(target).next().val());
+			 var numsub=$(target).next().val();
+			 addup=numsub*price;
+			 addupNode.innerHTML=addup;
+			changeNum(id,parseInt(numsub));
+			changeTotal();
+
+				
+		}
+		if(target.name=="add"){
+
+			if($(target).prev().val()==''){
+					$(target).prev().val(1);
+			}
+			$(target).prev().val(parseInt($(target).prev().val())+1);
+			$(target).prev().val($(target).prev().val());
+			 var numadd=$(target).prev().val();
+             addup=numadd*price;
+			 addupNode.innerHTML=addup;
+
+			changeNum(id,parseInt(numadd));
+			changeTotal();
+		}
+		if(target.name=="ck"){
+			if(target.checked){
+				shopCar.push(getGood(id));
+				
+			}
+			else{
+				var index = shopCar.indexOf(getGood(id));
+				if (index > -1) {
+  					shopCar.splice(index, 1);
+				}	
+			}
+			changeTotal();
+			
+
+		}
+	
+	})
+
+    function checkAll(){
+				var ischeck=document.getElementById("chAll")
+				var cks=document.getElementsByName("ck");
+				if(ischeck.checked==false){		
+				   for(var i=0;i<cks.length;i++){
+					  cks[i].checked=false;
+				    }
+					shopCar=[];
+					console.log(shopCar);
+					changeTotal();
+				}
+				if(ischeck.checked==true){	
+				   for(var i=0;i<cks.length;i++){
+					  cks[i].checked=true; 
+				    }
+					shopCar = data.slice();
+					changeTotal();
+				    console.log(shopCar);
+					
+				}
+				
+			}
+
+
+	function changeNum(id,num){
+		for(let i = 0;i<data.length;i++){
+			if(data[i].good_id === id){
+				data[i].good_num = num;
+				//console.log(data);
+				return ;
+			}
+		}
+	}
+
+	function getGood(id){
+		for(let i = 0;i<data.length;i++){
+			if(data[i].good_id === id){
+				return data[i];
+			}
+		}
+	}
+
+	function changeTotal(){
+		var total = 0;
+			for(let i =0;i<shopCar.length;i++){
+				
+				total = total + parseInt(shopCar[i].good_num)*parseInt(shopCar[i].market_price);
+			}
+			document.getElementById("goodall").innerHTML = total.toString();
+	}
+
+</script>
+</html>
