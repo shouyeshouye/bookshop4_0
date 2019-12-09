@@ -2,6 +2,7 @@ package com.example.bookshop1_0;
 
 import com.example.bookshop1_0.dao.BookMapper;
 import com.example.bookshop1_0.entity.CartEntity;
+import com.example.bookshop1_0.entity.SysUser;
 import com.example.bookshop1_0.service.BookService;
 import com.example.bookshop1_0.service.CartService;
 import com.example.bookshop1_0.service.OrderService;
@@ -30,7 +31,10 @@ class Bookshop10ApplicationTests {
 
     @Test
     void contextLoads() {
-
+        SysUser user=new SysUser();
+        user.setUsername("admin");
+        user.setPassword("admin");
+        System.out.println(userService.addAdmin(user));
 
     }
 

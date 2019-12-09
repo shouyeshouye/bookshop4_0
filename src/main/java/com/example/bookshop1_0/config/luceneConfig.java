@@ -14,7 +14,7 @@ public class luceneConfig {
     @Bean
     public LuceneBean luceneBean(){
         LuceneBean luceneBean = new LuceneBean();
-        luceneBean.setIndexPath("D:\\bookshopPro\\bookshop1_0\\src\\main\\resources\\index");
+        luceneBean.setIndexPath("D:\\Workspaces\\bookshop2_0\\src\\main\\resources\\index");
         luceneBean.setAnalyzer(new SmartChineseAnalyzer());
         luceneBean.createIndex(bookMapper.queryAll());
         return luceneBean;

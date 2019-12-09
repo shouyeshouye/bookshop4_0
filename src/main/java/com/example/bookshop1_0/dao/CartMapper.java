@@ -27,7 +27,8 @@ public interface CartMapper {
 
     @Select("select * from cart where id=#{id}")
     CartEntity queryById(@Param("id")int id);
-    @Select("select * from cart where id=#{id} and userName=#{userName}")
-    CartEntity queryByIdandUserneme(@Param("id")int id, @Param("userName") String username);
+
+    @Select("select * from cart where userName=#{userName}")
+    List<CartEntity> queryByUserneme( @Param("userName") String username);
 
 }

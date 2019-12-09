@@ -140,9 +140,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
             // 踢出后再更新下缓存队列
             cache.put(username, deque);
 
-            // 获取被踢出的sessionId的session对象
-            //Cache<Serializable, Session> sessionCache = cacheManager.getCache("sessionId-session");
-            //Session kickoutSession = sessionCache.get(kickoutSessionId);
+
             Session kickoutSession = sessionManager
                     .getSession(new DefaultSessionKey(kickoutSessionId));
             log.info(kickoutSession);
@@ -150,7 +148,6 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
                 // 设置会话的kickout属性表示踢出了
                 log.info("被踢出了");
                 kickoutSession.setAttribute("kickout", true);
-                //sessionCache.remove(kickoutSessionId);
             }
         }
 

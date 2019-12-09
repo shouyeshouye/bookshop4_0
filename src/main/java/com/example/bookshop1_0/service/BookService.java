@@ -24,6 +24,8 @@ public class BookService {
     public BooksEntity queryById(int id){
         return bookMapper.queryById(id);
     }
+    public List<BooksEntity> queryBycategoryMain(String categoryMain){return bookMapper.queryByCategoryMain(categoryMain);}
+    public List<BooksEntity> queryBycategorySmall(String categorySmall){return bookMapper.queryByCategorySmall(categorySmall);}
 
     public void add(BooksEntity book) {
 

@@ -39,9 +39,9 @@ public class ShiroConfig {
         //shiroFilterFactoryBean.setSuccessUrl("/loginSuccess");
         shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");
 
-        filterChainDefinitionMap.put("/doLogin", "kickout");
+        //filterChainDefinitionMap.put("/doLogin", "anon");
         filterChainDefinitionMap.put("/admin/*", "authc,roles[admin],kickout");
-        filterChainDefinitionMap.put("/user/*", "authc,roles[user,admin],kickout");
+        filterChainDefinitionMap.put("/user/*", "authc,roles[user],kickout");
         filterChainDefinitionMap.put("/success", "kickout,authc");
         filterChainDefinitionMap.put("/**", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

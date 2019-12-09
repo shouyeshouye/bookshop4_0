@@ -20,15 +20,19 @@ public class OrderService {
     @Autowired
     CartService cartService;
 
-    public int insertOrder(OrdersEntity orders, OrderDetailEntity orderDetail) {
-        orderMapper.insertOrders(orders);
-        OrdersEntity order = orderMapper.queryOrdersById(orders.getOrderId());
+    public Orders insertOrder(OrdersEntity ordersEntity, OrderDetailEntity orderDetail) {
+        orderMapper.insertOrders(ordersEntity);
+        Orders orders = new Orders();
+        OrdersEntity order = orderMapper.queryOrdersById(ordersEntity.getOrderId());
         if (order != null) {
             orderDetail.setOrderId(order.getOrderId());
-            if (orderMapper.insertOrdersDetail(orderDetail) > 0)
-                return 1;
+            if (orderMapper.insertOrdersDetail(orderDetail) > 0){
+                orders.setOrders(ordersEntity);
+                orders.setOrderDetail(orderDetail);
+                return orders;
+            }
         }
-        return 0;
+        return null;
     }
 
     public int updateStatus(Integer status, int orderId) {
@@ -57,11 +61,12 @@ public class OrderService {
         return orders;
     }
 
-    public int orderWithDirectly(int bookId, int count, String usnername) {
+    public Orders orderWithDirectly(int bookId, int count, String usnername) {
 
+        Orders orders = new Orders();
         BooksEntity book = bookService.queryById(bookId);
         if (null != book && book.getStock() < count || book == null) {
-            return 0;
+            return null;
         }
         int currentVersion = book.getVersion();
         BooksEntity bookForUpdate = new BooksEntity();
@@ -71,27 +76,29 @@ public class OrderService {
         bookForUpdate.setId(bookId);
         int i = bookService.updateBookCountOptimisticLock(bookForUpdate, currentVersion);
         if (i > 0) {
-            OrdersEntity orders = new OrdersEntity();
+            OrdersEntity order = new OrdersEntity();
             OrderDetailEntity orderDetail = new OrderDetailEntity();
             SysUser user = userService.findUserByName(usnername);
             if (user != null) {
-                orders.setUsername(user.getUsername());
-                orders.setAddress(user.getAddress());
-                orders.setPhone(user.getPhone());
-                orders.setAmount(book.getPrice() * count);
-                orders.setStatus(0);
-                orders.setCreateTime(new Date());
+                order.setUsername(user.getUsername());
+                order.setAddress(user.getAddress());
+                order.setPhone(user.getPhone());
+                order.setAmount(book.getPrice() * count);
+                order.setStatus(0);
+                order.setCreateTime(new Date());
 
                 orderDetail.setBookId(book.getId());
                 orderDetail.setAmount(book.getPrice() * count);
                 orderDetail.setBookname(book.getBookname());
                 orderDetail.setCount(count);
                 orderDetail.setPrice(book.getPrice());
-                if (insertOrder(orders, orderDetail) > 0)
-                    return 1;
+                Orders result=insertOrder(order, orderDetail);
+                if (result!=null){
+                    return result;
+                }
             }
         }
-        return 0;
+        return null;
     }
 
     public int orderWithCart(List<Integer> cartId, String username) {
@@ -99,9 +106,10 @@ public class OrderService {
         for (Integer id : cartId) {
             CartEntity cart = cartService.queryByIdandUserneme(id, username);
             if (cart != null) {
-                orderWithDirectly(cart.getBookId(), cart.getQuantity(), username);
-                cartService.deleteById(cart.getId());
-                sucess++;
+                if(orderWithDirectly(cart.getBookId(), cart.getQuantity(), username)!=null
+                        &&cartService.deleteById(cart.getId())>0){
+                    sucess++;
+                }
             }
         }
         return sucess;

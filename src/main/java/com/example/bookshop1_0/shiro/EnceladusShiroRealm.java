@@ -4,6 +4,7 @@ import com.example.bookshop1_0.dao.UserMapper;
 import com.example.bookshop1_0.entity.SysRole;
 import com.example.bookshop1_0.entity.SysUser;
 import com.example.bookshop1_0.service.UserService;
+import lombok.extern.log4j.Log4j2;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -18,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.HashSet;
 import java.util.Set;
 
-
+@Log4j2
 public class EnceladusShiroRealm extends AuthorizingRealm {
     @Autowired
     UserService userService;
@@ -39,6 +40,7 @@ public class EnceladusShiroRealm extends AuthorizingRealm {
         Set<String> userRoles = new HashSet<String>();
         for (SysRole role : user.getRoles()) {
             userRoles.add(role.getRole());
+            log.info(role.getRole()+"====================================================");
 //            List<SysPermission> rolePermissions = role.getPermissions();
 //            for (SysPermission permission : rolePermissions) {
 //                userPermissions.add(permission.getPermName());
