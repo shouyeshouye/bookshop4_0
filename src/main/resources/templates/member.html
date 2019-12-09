@@ -1,0 +1,882 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>编辑个人档案 -- 特伦网</title>
+    <link rel="stylesheet" type="text/css" href="http://customer.dangdang.com/wishlist/css/reco_wrap.css"/>
+    <link rel="stylesheet" href="../static/css/index.css"/>
+    <script src="../static/js/main.js"></script>
+</head>
+<style>
+    .help-main p {
+        line-height: 50px;
+    }
+</style>
+<style type="text/css">
+    .optionDiv {
+        position: absolute;
+        visibility: hidden;
+        background: #ffffff;
+    }
+</style>
+<script language="javascript" src="../static/js/date.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript" src="../static/js/jquery-1.4.2.min.js"></script>
+<script src="http://a.dangdang.com/getJS.php?cpc=true&cpm=true&cpt=true" type="text/javascript"></script>
+<script src="http://customer.dangdang.com/wishlist/script/RecommendAds.js" type="text/javascript"></script>
+<script language="javascript">
+    <!--
+    function getOs() {
+        if (navigator.userAgent.indexOf("MSIE") > 0) return 1;
+        if (isFirefox = navigator.userAgent.indexOf("Firefox") > 0) return 2;
+        if (isSafari = navigator.userAgent.indexOf("Safari") > 0) return 3;
+        if (isCamino = navigator.userAgent.indexOf("Camino") > 0) return 4;
+        if (isMozilla = navigator.userAgent.indexOf("Gecko/") > 0) return 5;
+        return 0;
+    }
+
+    function ChkNickname_new() {
+
+        var info = document.getElementById("info_1");
+        var obj = document.getElementById("Txt_petname");
+        var username = obj.value;
+        var reg = /^(\w|[\u4E00-\u9FA5])*$/;
+        if (arr = username.match(reg)) {
+            return true;
+        }
+        else {
+            info.className = "notice_write";
+            //obj.focus();
+            info.innerHTML = "昵称只能是数字，字母和汉字";
+            return false;
+        }
+    }
+
+    function changeclass_new(name) {
+        var obj1 = document.getElementById(name + "_1");
+        var obj2 = document.getElementById(name + "_2");
+        if (obj1)
+            obj1.className = "choice_cont now_color";
+        if (obj2)
+            obj2.className = "choice_cont now_color choice_cont_r";
+    }
+
+    function div_vis(divid) {
+        var div = document.getElementById(divid);
+        if (div != null)
+            div.style.display = 'block';
+    }
+
+    function hidobj(Divid) {
+        var divs = document.getElementById(Divid);
+        if (divs != null)
+            divs.style.visibility = "hidden";
+    }
+
+
+    function Chksubmit() {
+        //            if (!cue_chk())
+        //                return false;
+        if (!chkname())
+            return false;
+
+
+        if (!ChkNickname_new())
+            return false;
+        if (!chkaddress())
+            return false;
+        if (!chsex())
+            return false;
+        if (!chkstation())
+            return false;
+        if (!chkbirthday())
+            return false;
+        return true;
+        //document.getElementById("Button1").onclick;
+    }
+
+    function chkname() {
+
+
+        var obj = document.getElementById("Txt_petname");
+        var reg = /^\d+$/g;
+        var reg1 = /[A-Z]/g;
+        var reg2 = /^(\w|[\u4E00-\u9FA5])*$/;
+        var info = document.getElementById("info_1");
+
+        if (obj != null) {
+            if (GetCharLength(obj.value) < 4) {
+                info.className = "notice_write";
+                info.innerHTML = "最少四个字符，请输入您的昵称";
+                return false;
+            }
+            if (reg.test(obj.value)) {
+
+                info.className = "notice_write";
+                info.innerHTML = "昵称不能全由数字组成！";
+
+                return false;
+            }
+            if (reg1.test(obj.value)) {
+
+                info.className = "notice_write";
+                info.innerHTML = "昵称不能有大写字母！";
+                return false;
+            } else {
+
+
+                if (obj.value.match(reg2)) {
+
+                    return true;
+                }
+                else {
+
+                    info.className = "notice_write";
+                    //obj.focus();
+                    info.innerHTML = "昵称只能是数字，字母和汉字";
+                    return false;
+                }
+            }
+
+            if (obj.value == "" || !chkstr(4, 20, obj.value)) {
+
+                var info = document.getElementById("info_1");
+                if (info != null) {
+                    info.className = "notice_write";
+
+                    if (obj.value == "") {
+                        obj.focus();
+                        info.innerHTML = "此项为必填项，请输入您的昵称";
+                        return false;
+                    }
+                    else if (GetCharLength(obj.value) < 4) {
+
+                        obj.focus();
+                        info.innerHTML = "至少4个字符";
+                        return false;
+                    }
+                    else {
+
+                        info.innerHTML = "超出最大限制字数";
+                        obj.focus();
+                        return false;
+                    }
+                }
+
+            }
+        }
+        else {
+            return false;
+        }
+        var v_date = document.getElementById("v_date");
+        chknickname(v_date.value, obj.value);
+        return true;
+    }
+
+    function chkstr(min, max, str) {
+        var num = GetCharLength(str);
+        if (num > max || num < min)
+            return false;
+        else
+            return true;
+    }
+
+    function chkaddress() {
+
+        var obj = document.getElementById("hd_area");
+        if (obj != null) {
+            if (obj.value == "" || obj.value == "0") {
+                var area_clientID = document.getElementById("area_clientID");
+                var area_clientID_value = area_clientID.value;
+                var ctl00_s1 = document.getElementById(area_clientID_value + "_s1");
+                ctl00_s1.focus();
+                var div = document.getElementById("notice_2");
+                div.className = "notice_write";
+
+                div.innerHTML = "此项为必填项";
+                div.style.visibility = 'visible';
+                //div.style.display="block";
+                return false
+            }
+        }
+        else {
+            return false;
+        }
+        return true;
+        //return false;
+    }
+
+    function chsex() {
+        var obj1 = document.getElementById("Rd_sex_1");//男
+        var obj2 = document.getElementById("Rd_sex_2");
+        if (obj1 != null && obj2 != null) {
+            if (obj1.checked == false && obj2.checked == false) {
+                obj1.focus();
+                var div = document.getElementById("notice_3");
+                div.className = "notice_write";
+                div.innerHTML = "此项为必填项,请选择您的性别";
+                div.style.visibility = 'visible';
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+        return true;
+    }
+
+    function chkbirthday() {
+        var chk = false;
+        var obj1 = document.getElementById("Dp_year");
+        var obj2 = document.getElementById("Dp_month");
+        var obj3 = document.getElementById("Dp_day");
+
+        if (obj1.value != '0' || obj2.value != '0' || obj3.value != '0')
+            chk = true;
+        if (obj1 != null && obj2 != null && obj3 != null) {
+            if (chk && (obj1.value == '0' || obj2.value == '0' || obj3.value == '0')) {
+                var div = document.getElementById("notice_4");
+                var span = document.getElementById("task_birthday");
+                if (obj3.value == '0')
+                    obj3.focus();
+                if (obj2.value == '0')
+                    obj2.focus();
+                if (obj1.value == '0')
+                    obj1.focus();
+                div.className = "notice_write";
+                //div.innerHTML="此项为必填项,请选择您的出生日期";
+                div.innerHTML = "请选择您的出生日期";
+                div.style.visibility = 'visible';
+                span.style.display = 'none';
+                return false;
+            }
+            if (!chk) {//如果都不选择
+                return true;
+            }
+            else {
+                if (!checkdate(obj1.value, obj2.value, obj3.value)) {
+                    var div = document.getElementById("notice_4");
+                    obj1.focus();
+                    div.className = "notice_write";
+                    div.innerHTML = "请检查日期";
+                    div.style.visibility = 'visible';
+                    return false;
+                }
+            }
+        }
+        else {
+            return false;
+        }
+        var res = confirm("您的生日是" + obj1.value + "年" + obj2.value + "月" + obj3.value + "日，确认后不可修改！");
+        return res;
+    }
+
+    function chkstation() {
+        var stationobj = document.getElementById("defaultValue");
+        if (stationobj != null) {
+            if (stationobj.value == "" || !chkstr(0, 40, stationobj.value)) {
+                var div = document.getElementById("notice_5");
+                if (div != null) {
+                    div.className = "notice_write";
+                    if (stationobj.value == "") {
+                        div.innerHTML = "此项为必填项，请选择或填写您的个性身份";
+                        var Rd_student = document.getElementById("Rd_student");
+                        Rd_student.focus();
+                    }
+                    else {
+                        div.innerHTML = "超出最大限制字数";
+                    }
+                    div.style.visibility = 'visible';
+                    return false
+                }
+            }
+        }
+        else {
+            return false;
+        }
+        //
+        return true;
+        return false;
+    }
+
+    function IniHidDiv() {
+        var obj;
+        for (var i = 2; i <= 5; i++) {
+            obj = document.getElementById("notice_" + i);
+            if (obj != null) {
+                //alert(obj.id);
+                obj.style.visibility = 'hidden';
+            }
+        }
+
+        var info = document.getElementById("info_1");
+        if (info == null)
+            return;
+        //info.className = "c_gray";
+        //info.innerHTML="<p>您的昵称可以由小写英文字母、中文、数字组成，</p>长度4－20个字符，一个汉字为两个字符";
+
+    }
+
+    function GetCharLength(str) {
+        var iLength = 0;
+        for (var i = 0; i < str.length; i++) {
+            if (str.charCodeAt(i) > 255) {
+                iLength += 2;
+            }
+            else {
+                iLength += 1;
+            }
+        }
+        return iLength;
+    }
+
+    function Keyonkeydown(obj, num, evt) {
+        if (navigator.userAgent.indexOf("Firefox") > 0) {
+
+            evt = evt ? evt : (window.event ? window.event : null);
+            if (evt.keyCode != 8) {
+                if (obj.value.length >= num) {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                }
+            }
+        }
+        else if (navigator.userAgent.indexOf("MSIE") > 0) {
+            if (window.event.keyCode != 8) {
+                if (obj.value.length >= num)
+                    event.returnValue = false;
+                event.cancelBubble = true;
+            }
+        }
+    }
+
+    function plaster(obj, num, evt) {
+
+
+    }
+
+
+    function cue_chk() {
+
+        var obj = document.getElementById("Txt_petname");
+        var info = document.getElementById("info_1");
+        var reg = /^\d+$/g;
+        var reg1 = /[A-Z]/g;
+        if (obj != null && info != null) {
+            if (GetCharLength(obj.value) < 4) {
+                info.className = "notice_write";
+                info.innerHTML = "最少四个字符，请输入您的昵称";
+                return false;
+            } else if (reg.test(obj.value)) {
+
+                info.className = "notice_write";
+                info.innerHTML = "昵称不能全由数字组成！";
+                return false;
+            } else if (reg1.test(obj.value)) {
+
+                info.className = "notice_write";
+                info.innerHTML = "昵称不能有大写字母！";
+                return false;
+            }
+            else {
+
+                if (ChkNickname_new()) {
+                    var v_date = document.getElementById("v_date");
+                    if (v_date != null) {
+                        var v_date_value = v_date.value;
+                        info = null;
+                        chknickname(v_date_value, obj.value);
+
+                    }
+                    return true;
+                }
+            }
+        }
+    }
+
+    function cue() {
+        var obj = document.getElementById("Txt_petname");
+        var info = document.getElementById("info_1");
+        if (obj != null && info != null) {
+            if (GetCharLength(obj.value) < 4) {
+                info.className = "notice_write";
+                info.innerHTML = "最少四个字符，请输入您的昵称";
+            }
+            else {
+                info.className = "c_gray";
+                info.innerHTML = "<p>您的昵称可以由小写英文字母、中文、数字组成，</p>长度4－20个字符，一个汉字为两个字符";
+            }
+        }
+        //event.cancelBubble = true;
+    }
+
+
+    function SetText(obj, classname, item) {
+        var inter, love;
+        inter = 0;
+        love = 0;
+        var Txt_interesting = document.getElementById("Txt_interesting");
+        var Txt_love = document.getElementById("Txt_love");
+        if (item == '0') {
+            if (obj.name == "Txt_interesting" && inter == 0 && obj.value == "不同项目之间请用空格隔开，例如“旅行 阅读 瑜伽”") {
+                obj.value = "";
+                inter++;
+                obj.className = classname;
+            }
+            else if (obj.name == "Txt_love" && love == 0 && obj.value == "不同人名之间请用空格隔开，例如“金庸 周杰伦 姚明”") {
+
+                obj.value = "";
+                love++;
+                obj.className = classname;
+            }
+        }
+        else {
+            if (obj.name == "Txt_interesting" && obj.value == "") {
+                obj.value = "不同项目之间请用空格隔开，例如“旅行 阅读 瑜伽”";
+                inter = 0;
+                obj.className = classname;
+            }
+            else if (obj.name == "Txt_love" && obj.value == "") {
+                obj.value = "不同人名之间请用空格隔开，例如“金庸 周杰伦 姚明”";
+                love = 0;
+                obj.className = classname;
+            }
+        }
+        if (obj.name == "Txt_interesting") {
+            if (obj.value == "不同项目之间请用空格隔开，例如“旅行 阅读 瑜伽”" || obj.value == "") {
+                changeoldclass("div_5");
+            }
+        }
+        else if (obj.name == "Txt_love") {
+            if (obj.value == "不同人名之间请用空格隔开，例如“金庸 周杰伦 姚明”" || obj.value == "") {
+                changeoldclass("div_6");
+            }
+        }
+    }
+
+    function SetintroduceDiv() {
+        var Txt_introduce = document.getElementById("Txt_introduce");
+        if (Txt_introduce.value == "")
+            changeoldclass("div_7");
+        else
+            changeclass('div_7');
+
+    }
+
+    function changeurl(divname) {
+        var url = document.getElementById("Txt_blog");
+
+        if (url != null) {
+            if (url.value != 'http://') {
+                changeclass('div_3');
+            }
+            else {
+                changeoldclass("div_3");
+            }
+        }
+    }
+
+    function Checkchk() {
+        var chkobj;
+        var ischk;
+        ischk = false;
+        for (i = 1; i <= 6; i++) {
+            chkobj = document.getElementById("Chk_" + i);
+            if (chkobj != null) {
+                if (chkobj.checked) {
+                    //alert("fasdf");
+                    ischk = true;
+                    break;
+                }
+            }
+        }
+        return ischk;
+    }
+
+    function chknamediv() {
+        var obj = document.getElementById("Txt_petname");
+        if (obj != null) {
+            if (obj.value != "")
+                changeclass("div_1");
+        }
+    }
+
+    function chkarea() {
+        var obj = document.getElementById("hd_area");
+        if (obj != null) {
+            if (obj.value != "" && obj.value != "0")
+                changeclass("div_2");
+        }
+    }
+
+    function disablcontrol(id) {
+        var obj1 = document.getElementById(id + "_0");
+        var obj2 = document.getElementById(id + "_1");
+        if (obj1 != null || obj2 != null) {
+            obj1.disabled = false;
+            obj2.disabled = false;
+        }
+        if (id == "Rd_standingis") {
+            var defaultValue = document.getElementById("defaultValue");
+            defaultValue.disabled = false;
+        }
+    }
+
+    function chksex() {
+        var obj1 = document.getElementById("Rd_sex_1");
+        var obj2 = document.getElementById("Rd_sex_2");
+
+        if (obj1 != null && obj2 != null) {
+
+            if (obj1.checked == true || obj2.checked == true) {
+                changeclass_new('span_1');
+            }
+            else {
+                var Rd_sexis_0 = document.getElementById("Rd_sexis_0");
+                var Rd_sexis_1 = document.getElementById("Rd_sexis_1");
+                Rd_sexis_0.disabled = true;
+                Rd_sexis_1.disabled = true;
+                //var Button2 = document.getElementById("Button2");
+                //Button2.disabled="true";
+            }
+        }
+    }
+
+    function chkbirth() {
+        var obj1 = document.getElementById("Dp_year");
+        var obj2 = document.getElementById("Dp_month");
+        var obj3 = document.getElementById("Dp_day");
+        if (obj1 != null && obj2 != null && obj3 != null) {
+            //if(obj1.value!='0'||obj2.value!='0'||obj3.value!='0'){
+            if (obj1.value == '0' || obj2.value == '0' || obj3.value == '0') {
+                //changeclass_new('span_2');
+                changeoldclass('div8');
+            }
+            else {
+                //var Rd_biris_0 = document.getElementById("Rd_biris_0");
+                //var Rd_biris_1 = document.getElementById("Rd_biris_1");
+                //Rd_biris_0.disabled = true;
+                //Rd_biris_1.disabled = true;
+                changeclass('div8');
+            }
+        }
+    }
+
+    function chkstation_span() {
+        var obj = document.getElementById("defaultValue");
+        if (obj != null) {
+            if (obj.value != "")
+                changeclass_new('span_3');
+            else {
+
+                var Rd_standingis_0 = document.getElementById("Rd_standingis_0");
+                var Rd_standingis_1 = document.getElementById("Rd_standingis_1");
+                var defaultValue = document.getElementById("defaultValue");
+                Rd_standingis_0.disabled = true;
+                Rd_standingis_1.disabled = true;
+                defaultValue.disabled = true;
+            }
+        }
+    }
+
+    function changeclass_timechk(objid) {
+        var objyear = document.getElementById("Dp_year");
+        var objmonth = document.getElementById("Dp_month");
+        var objday = document.getElementById("Dp_day");
+
+        if (objyear != null && objmonth != null && objday != null) {
+            if (objyear.value == '0' && objmonth.value == '0' && objday.value == '0') {
+                changeoldclass(objid);
+            }
+            else {
+                changeclass(objid);
+            }
+        }
+    }
+
+    function changeclass(objname) {
+        var obj = document.getElementById(objname);
+        obj.className = "list_other now_color";
+    }
+
+    function changeoldclass(objname) {
+        //alert(objname);
+        var obj = document.getElementById(objname);
+        if (obj)
+            obj.className = "list_other";
+        //alert("changeoldclass:"+objname);
+    }
+
+    function CheckForm() {
+
+        chknamediv();
+        chkarea();
+        chksex();
+        chkbirth();
+        chkstation_span();
+        changeurl("div_3");
+        changeclass_chk();
+
+        obj = document.getElementById("Txt_interesting");
+        if (obj != null) {
+
+            if (obj.value == "" || obj.value == "不同项目之间请用空格隔开，例如“旅行 阅读 瑜伽”") {
+                obj.value = "不同项目之间请用空格隔开，例如“旅行 阅读 瑜伽”";
+                var objdiv = document.getElementById("div_5");
+                objdiv.className = "list_other";
+                changeoldclass("div_5");
+            }
+            else {
+                changeclass("div_5");
+            }
+        }
+
+        obj = document.getElementById("Txt_love");
+        if (obj != null) {
+
+            if (obj.value == "" || obj.value == "不同人名之间请用空格隔开，例如“金庸 周杰伦 姚明”") {
+                obj.value = "不同人名之间请用空格隔开，例如“金庸 周杰伦 姚明”";
+                var objdiv = document.getElementById("div_6");
+                objdiv.className = "list_other";
+            }
+            else {
+
+                changeclass("div_6");
+                //alert('div_6');
+            }
+        }
+        obj = document.getElementById("Txt_introduce");
+        if (obj != null && obj.value != "") {
+            changeclass("div_7");
+        }
+
+    }
+
+    function changeclass_chk() {
+        obj = document.getElementById("div_4");
+        if (obj != null) {
+            if (Checkchk())
+                obj.className = "list_other now_color";
+            else
+                obj.className = "list_other";
+        }
+    }
+
+    function change_select_div() {
+        var area_div = document.getElementById("area_div");
+        var area_select_div = document.getElementById("area_select_div");
+        area_div.style.display = "none";
+        area_select_div.style.display = "block";
+        area_div = null;
+        area_select_div = null;
+
+    }
+
+    function Hid_stateinfo_info() {
+        var stateinfo_info = document.getElementById("stateinfo_info");
+        if (stateinfo_info != null)
+            stateinfo_info.style.display = "none";
+    }
+
+    -->
+</script>
+<body>
+<!--页头开始-->
+<link href="http://static.dangdang.com/mydd/style/mydd_head.css" rel="stylesheet" type="text/css"/>
+<link href="http://static.dangdang.com/mydd/style/mydd_public.css" rel="stylesheet" type="text/css"/>
+<link href="http://static.dangdang.com/mydd/style/mydd_title.css" rel="stylesheet" type="text/css"/>
+<link href="http://static.dangdang.com/mydd/style/mydd_leftnavi.css" rel="stylesheet" type="text/css"/>
+<link href="http://static.dangdang.com/mydd/style/mydd_foot.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+</script>
+<link href="http://static.dangdang.com/css/header2012/header_960_150803.css?20180908" rel="stylesheet" type="text/css">
+<script charset="gb2312" type="text/javascript">var width = 0;
+narrow = 1;</script>
+<script src="http://static.dangdang.com/js/header2012/pagetop2015_0827.js?20180908" charset="gb2312"
+        type="text/javascript"></script>
+<script src="http://static.dangdang.com/js/header2012/dd.menu-aim.js?20180908" charset="gb2312"
+        type="text/javascript"></script>
+<script type="text/javascript" src="../static/js/jquery.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        var user=document.getElementById('user');
+        var login=document.getElementById('loginAction');
+        var userText=document.getElementById('userText').innerText;
+        if(userText==""){
+            //user.isVisible(false);
+            login.href="/loginPage";
+            login.innerText="登录";
+        }else {
+            user.href="home"
+            login.href="/logout";
+            login.innerText="登出";
+        }
+    });
+
+</script>
+
+<div id="hd">
+    <div id="tools">
+        <div class="tools">
+            <div class="ddnewhead_operate" dd_name="顶链接">
+                <ul class="ddnewhead_operate_nav">
+                    <li><a target="_blank" href="http://e.dangdang.com/ebook/listUserEbooks.do" name="我的云书房" dd_name="我的云书房">我的云书房</a></li>
+                    <li class="my_dd"><a class="menu_btn" target="_blank" href="http://myhome.dangdang.com/" name="我的特伦" dd_name="我的特伦" id="a_myddchannel" onmouseover="showgaoji('a_myddchannel','__ddnav_mydd')" onmouseout="hideotherchannel('a_myddchannel','__ddnav_mydd');">我的特伦</a>
+                        <ul class="ddnewhead_gcard_list" id="__ddnav_mydd" onmouseover="showgaoji('a_myddchannel','__ddnav_mydd')" onmouseout="hideotherchannel('a_myddchannel','__ddnav_mydd');">
+                            <li><a target="_blank" href="" name="mydd_7" dd_name="新_我的订单">我的订单</a></li>
+                            <li><a target="_blank" href="" name="mydd_8" dd_name="新_购物车" rel="nofollow">购物车</a></li>
+                            <li><a target="_blank" href="" name="mydd_1" dd_name="我的收藏" rel="nofollow">我的收藏</a></li>
+                            <li><a target="_blank" href="" name="mydd_5" dd_name="我的余额" rel="nofollow">我的余额</a></li>
+                            <li><a target="_blank" href="" name="mydd_4" dd_name="我的评论" rel="nofollow">我的评论</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="new_head_znx" id="znx_content"></div>
+                <div class="ddnewhead_welcome" display="none;">
+                    <span class="hi hi_none">欢迎光临特伦网上书店 </span>
+                    <a id="user" href="" class="login_link"><p id="userText" th:text="${username}"></p></a>
+                    <a id="loginAction" href="" class="login_link"></a>
+                    <a href="register.html">免费注册</a></span>
+                </div>
+                <div class="ddnewhead_area">
+                    <a href="javascript:void(0);" id="area_one" class="ddnewhead_area_a" onmouseover="show_area_list();" onmouseout="hidden_area_list();">送至：<span id="curent_area"></span></a>
+                    <ul class="ddnewhead_area_list" style="display: none;" id="area_list" onmouseover="this.style.display='block';" onmouseout="this.style.display='none';">
+                        <li><a href="javascript:void(0);" onclick="change_area('111','北京')" num="111">北京</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('112','天津')" num="112">天津</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('113','河北')" num="113">河北</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('114','山西')" num="114">山西</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('115','内蒙古')" num="115">内蒙古</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('121','辽宁')" num="121">辽宁</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('122','吉林')" num="122">吉林</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('123','黑龙江')" num="123">黑龙江</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('131','上海')" num="131">上海</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('132','江苏')" num="132">江苏</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('133','浙江')" num="133">浙江</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('134','安徽')" num="134">安徽</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('135','福建')" num="135">福建</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('136','江西')" num="136">江西</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('137','山东')" num="137">山东</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('141','河南')" num="141">河南</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('142','湖北')" num="142">湖北</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('143','湖南')" num="143">湖南</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('144','广东')" num="144">广东</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('145','广西')" num="145">广西</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('146','海南')" num="146">海南</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('150','重庆')" num="150">重庆</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('151','四川')" num="151">四川</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('152','贵州')" num="152">贵州</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('153','云南')" num="153">云南</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('154','西藏')" num="154">西藏</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('161','陕西')" num="161">陕西</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('162','甘肃')" num="162">甘肃</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('163','青海')" num="163">青海</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('164','宁夏')" num="164">宁夏</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('165','新疆')" num="165">新疆</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('171','台湾')" num="171">台湾</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('172','香港')" num="172">香港</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('173','澳门')" num="173">澳门</a></li>
+                        <li><a href="javascript:void(0);" onclick="change_area('174','钓鱼岛')" num="174">钓鱼岛</a></li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+    <div id="header_end"></div>
+    <!--CreateDate  2019-12-04 16:00:02-->
+    <div style="position:relative;" class="logo_line_out">
+        <div class="logo_line" dd_name="搜索框">
+            <div class="logo"><img
+                    src="http://m.qpic.cn/psb?/V11ZtAnl477riM/A0rRXr2Rjb5CdbHTHdHI8T3WmaB26qUBoDrLoSzbTQ0!/b/dFQBAAAAAAAA&bo=WwFOAAAAAAADBzY!&rf=viewer_4"
+                    usemap="#logo_link"/>
+                <map name="logo_link" id="logo_link" dd_name="logo区">
+                    <area shape="rect" coords="0,18,200,93" href="http://www.dangdang.com" title="特伦"
+                          onfocus="this.blur();">
+                    <area shape="rect" coords="200,18,320,93" href="http://www.dangdang.com/" title="" target="_blank"
+                          onfocus="this.blur();">
+                </map>
+            </div>
+            <div class="search">
+                <form action="http://search.dangdang.com" name="searchform" id="form_search_new"
+                      onsubmit="return searchsubmit();" method="GET">
+                    <label for="key_S" class="label_search" id="label_key"
+                           onclick="this.style.color='rgb(255, 255, 255)';"
+                           style="visibility: visible; color: rgb(102, 102, 102);">日历</label>
+                    <input type="text" class="text gray" name="key" ID="key_S" autocomplete="off"
+                           onclick="key_onclick(event);" onfocus="key_onfocus(event);" onblur="key_onblur();"
+                           onbeforepaste="onpaste_search();"/><a href="javascript:void(0);" onclick="clearkeys();"
+                                                                 class="del-keywords"></a><span class="select"
+                                                                                                onmouseover="allCategoryShow();"
+                                                                                                onmouseleave="allCategoryHide();"
+                                                                                                onmouseout='if("\v"!="v"){ allCategoryHide();}'><span
+                        id="Show_Category_Name" dd_name="全部分类">全部分类</span><span class="icon"></span>
+                <div id="search_all_category" class="select_pop" style="height:0px;padding: 0px;border-width: 0px;"
+                     dd_name="搜索分类">
+                    <a href="javascript:void(0);" onclick="selectCategory('',this);"><span id="Show_Category_Name"
+                                                                                           dd_name="全部分类">全部分类</span></a>
+                                        <a href="javascript:void(0);"
+                                           onclick="selectCategory('01.00.00.00.00.00',this);"
+                                           dd_name="图书"><span>图书</span></a>
+                                        <a href="javascript:void(0);"
+                                           onclick="selectCategory('98.00.00.00.00.00',this);"
+                                           dd_name="电子书"><span>电子书</span></a>
+                                    </div>
+            </span>
+                    <input type="hidden" id="default_key" value="日历"/>
+                    <input type="submit" id="search_btn" dd_name="搜索按钮" style="display:none"/>
+                    <input id="SearchFromTop" style="display:none" type="hidden" name="SearchFromTop" value="1"/>
+                    <input type="button" id="suggest_product_btn" name="suggestproduct_btn" style="display:none"
+                           onclick="void(0)"/>
+                    <input type="button" id="suggest_class_btn" name="suggestclass_btn" style="display:none"
+                           onclick="void(0)"/>
+                    <input type="submit" id="suggest_searchkey_btn" name="suggestsearchkey_btn" style="display:none"
+                           dd_name="搜索按钮"/>
+                    <input type="hidden" id="catalog_S" name="catalog" value="">
+                    <input type="button" class="button" dd_name="搜索按钮"
+                           onclick="javascript:document.getElementById('search_btn').click();"/>
+                </form>
+            </div>
+
+            <div id="suggest_key" class="suggest_key" style="display:none;"></div>
+            <div class="ddnew_cart"><a href="javascript:AddToShoppingCart(0);" name="购物车" dd_name="购物车"><i
+                    class="icon_card"></i>购物车<b id="cart_items_count"></b></a></div>
+            <div class="ddnew_order"><a target="_blank" href="http://myhome.dangdang.com/myOrder" name="我的订单"
+                                        dd_name="我的订单" rel="nofollow">我的订单<b id="unpaid_num"
+                                                                             style="color:#ff2832;font:bold 12px Arial;"></b></a>
+            </div>
+        </div>
+    </div>
+    <div class="nav_top" dd_name="一级导航条">
+        <br><br><br><br><br><br>
+
+        <div class="help-wrap">
+            <div class="container clearfix">
+
+                <div class="help-r fr">
+                    <div class="help-item-title">个人信息</div>
+                    <div class="help-main">
+                        <form action="">
+                            <p><span class="nice">用户名：</span><span>2078140086</span></p>
+                            <p><span class="nice">昵称：</span><input type="text" value="快到碗里来"><span
+                                    class="nice">联系电话：</span><input type="text" value="18219443899"></p>
+                            <p><span class="nice">居住地：</span><input type="text" value="中国 广西"><span
+                                    class="nice">收货地址：</span><input type="text" value="桂林电子科技大学花江校区"></p>
+                            <p><span class="nice">邮箱：</span><input type="text" value="asdf@126.com"><span class="nice">自我介绍：</span><input
+                                    type="text" value="大四"></p>
+                            <input class="save" type="submit" value="修改"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="http://static.dangdang.com/js/login/check_snbrowse.js?20191204" type="text/javascript"></script>
+        <script type="text/javascript">login_session.browsePageOperate();</script>
+        <script src="http://per.dangdang.com/utopia.js?20191204" type="text/javascript"></script>
+        <script type="text/javascript" src="http://click.dangdang.com/js_tracker.js?20191204"></script>
+        <script type="text/javascript" src="http://databack.dangdang.com/collect.js?20191204"></script>
+        <script type="text/javascript" src="http://databack.dangdang.com/store.js?20191204"></script>
+
+
+</body>
+</html>

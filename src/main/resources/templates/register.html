@@ -1,0 +1,394 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>新用户注册 - 特伦网</title>
+    <link type="text/css" href="../static/css/register_150706.css" rel="stylesheet">
+</head>
+<body ddt-page="register_page">
+<link href="../static/doc.dangdang.com/unite_header_1129.css~2.css" rel="stylesheet" type="text/css">
+<script src="../static/doc.dangdang.com/pagetop_20121010.js" type="text/javascript"></script>
+<form action="" id="bootpagetopSearch" name="bootpagetopSearch"
+      method="GET"></form>
+<script type="text/javascript">initHeaderOperate();</script>
+<form id="register_form" method="post" action="" onsubmit="return false;">
+    <input type="password" style="display: none;">
+    <div id="bd">
+        <!--默认-->
+        <div class="shadow_box">
+            <div class="register_box">
+                <div class="head">
+                    <span class="dd_more"><a href="index.html" class="home">特伦首页</a><a
+                    >注册帮助</a></span>
+                    <a href="javascript:void(0);" class="head_a head_a1">新用户注册</a>
+                </div>
+                <div class="help_icon_trigger" style="left: 1241.5px;">
+                    <a title="联系客服" id="feedback" name="feedback" target="_blank"
+                       href="http://faqrobot.dangdang.com/robot/robotDD.html?sysNum=dd_1000">
+                    </a>
+                </div>
+                <div class="body">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody>
+                        <tr>
+                            <td class="t">登录密码</td>
+                            <td>
+                                <input name="txt_password" id="txt_password" onpaste="return false;" tabindex="2"
+                                       type="password" class="text" maxlength="20">
+                                <span id="spn_password_ok" class="icon_yes" style="display: none;"></span>
+                                <span id="J_tipPassword" class="cue warn"></span>
+                                <span id="J_tipUpperCaseBox" class="prompt" style="display: none;"><span
+                                        class="icon"></span>键盘大写锁定已打开，请注意大小写!</span>
+                                <span id="spnPwdStrongTips">
+											<span id="spnPwdStrong1" class="cue warn j_pwdStrong"
+                                                  style="display: none;">
+												<span class="msg_level"><span
+                                                        class="s1"></span><span></span><span></span></span>密码过于简单
+											</span>
+											<span id="spnPwdStrong2" class="cue warn j_pwdStrong"
+                                                  style="display: none;">
+												<span class="msg_level"><span class="s1"></span><span class="s2"></span><span></span></span>试试字母、符号、数字的组合更安全
+											</span>
+											<span id="spnPwdStrong3" class="cue warn j_pwdStrong"
+                                                  style="display: none;">
+												<span class="msg_level"><span class="s1"></span><span class="s2"></span><span
+                                                        class="s3"></span></span>密码设置安全，放心使用
+											</span>
+										</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="t">确认密码</td>
+                            <td>
+                                <input id="txt_repassword" name="txt_repassword" onpaste="return false" tabindex="3"
+                                       type="password" class="text" maxlength="20"><span id="spn_repassword_ok"
+                                                                                         class="icon_wrong"
+                                                                                         style="display: none;"></span>
+                                <span id="J_tipSurePassword" class="cue"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <!-- 图形验证码 -->
+                            <td class="t j-vcode">验证码</td>
+                            <td class="wl_change" style="z-index: 1" colspan="3">
+
+                                <input id="text" name="text" autocomplete="off" placeholder="请输入验证码" maxlength="4"
+                                       type="text" class="text check_number" tabindex="16">
+                                <div id="J_tipImgVcode" class="wl_select_icon2 wl_select_wl"></div>
+
+                                <div id="J_tipInfoVcode" class="info_red info_red1 vcode_info" style="z-index: 1"></div>
+                                <canvas id="canvas" width="100" height="43" onclick="dj()" style="border: 1px solid #ccc;
+										border-radius: 5px;"></canvas>
+                                <!--<span class="icon_wrong pin_i"></span>-->
+                            </td>
+                            <!-- 短信验证码 -->
+
+                        </tr>
+                        <tr>
+                            <td class="t">&nbsp;</td>
+                            <td class="clause">
+										<span class="float_l">
+											<input id="chb_agreement" name="chb_agreement"
+                                                   onmouseover="this.style.cursor='pointer';this.style.cursor='hand';"
+                                                   tabindex="7" type="checkbox" checked="checked">我已阅读并同意
+											<a target="_blank" href="" tabindex="8">《特伦交易条款》</a>和
+											<a target="_blank" href="" tabindex="9">《特伦社区条款》</a>
+										</span>
+                                <span id="J_tipAgreement" class="cue"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="t">&nbsp;</td>
+                            <td>
+                                <button id="J_submitRegister" class="btn_login" tabindex="10" onclick="sublim()">立即注册
+                                </button>
+                                <a id="J_submitRegisterUnclick" style="display: none;" class="btn_login">注册中...</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="submit" id="btn_confirm" style="display: none">
+    <input type="hidden" name="hdn_username" id="hdn_username">
+    <input type="hidden" name="hdn_mobile" id="hdn_mobile">
+    <input type="hidden" name="hdn_password" id="hdn_password">
+    <input type="hidden" name="action_post" id="action_post" value="register">
+    <input type="hidden" name="returnurl" id="returnurl" value="http://www.dangdang.com/">
+    <input type="hidden" name="deviceId" id="deviceId">
+</form>
+<input type="hidden" id="J_errorCode" value="">
+<iframe id="fraud" src="https://rcc.ddimg.cn/fraud.html?token=" frameborder="0" width="0" height="0" scrolling="yes"
+        marginheight="0" marginwidth="0"></iframe>
+<!--页尾 开始 -->
+
+<style type="text/css">
+    .footer_nav_box {
+        border-top: 1px solid #ebebeb;
+        width: 100%;
+        _width: expression(this.scrollWidth < 960 ? "960px" : "auto");
+        min-width: 960px;
+        padding: 17px 0 50px;
+    }
+
+    .footer_nav_box a, .footer_nav_box {
+        color: #8c8c8c;
+        font-size: 12px;
+        text-decoration: none;
+    }
+
+    .footer_nav_box a:hover {
+        color: #f48570;
+        text-decoration: underline;
+    }
+
+    .footer_nav_box .footer_nav {
+        text-align: center;
+        line-height: 20px;
+        padding-bottom: 17px;
+        padding-top: 25px;
+    }
+
+    .footer_nav_box .footer_nav span.sep {
+        margin: 0 17px 0 19px;
+    }
+
+    .footer_nav_box .footer_copyright {
+        line-height: 20px;
+        text-align: center;
+        width: 960px;
+        margin: 0 auto;
+    }
+
+    .footer_nav_box .footer_copyright span.sep {
+        margin: 0 17px 0 19px;
+    }
+
+    .footer_nav_box .footer_icon {
+        padding: 10px 0 0 340px;
+        width: 640px;
+        margin: 0 auto;
+        height: 77px;
+    }
+
+    .footer_nav_box .validator, .footer_nav_box .knet {
+        float: left;
+        display: inline;
+        padding: 15px 5px 15px;
+        width: 135px;
+        height: 47px;
+    }
+
+    .footer_copyright {
+        padding: 10px 0 0 0;
+        margin: 0 auto;
+        float: none;
+        width: auto;
+        text-align: center;
+        color: #8c8c8c;
+    }
+
+    .footer_copyright span, .public_footer .footer_copyright a.footer_img {
+        display: inline-block;
+        float: none;
+    }
+
+    .footer_copyright a {
+        padding: 0 4px;
+        color: #8c8c8c;
+        font-size: 12px;
+        text-decoration: none;
+    }
+
+    .footer_copyright a:hover {
+        color: #f48570;
+        text-decoration: underline;
+    }
+
+    .footer_nav_box .footer_nav .footer_hot_search {
+        display: inline-block;
+        *display: inline;
+        width: 50px;
+        position: relative
+    }
+
+    .footer_nav_box .footer_nav .pos_a_box {
+        position: absolute;
+        left: -251px;
+        top: 22px;
+        background-color: #f48570;
+        width: 300px;
+        border-radius: 8px;
+        text-align: center;
+        height: 14px;
+        line-height: 14px
+    }
+
+    .footer_nav_box .footer_nav .pos_a_box a, .footer_nav_box .footer_nav .pos_a_box a:hover, .footer_nav_box .footer_nav .pos_a_box span {
+        padding: 0 2px;
+        color: #fff;
+        text-decoration: none
+    }
+
+    .footer_nav_box .footer_nav .pos_a_box i {
+        display: block;
+        width: 0;
+        height: 0;
+        line-height: 0;
+        font-size: 0;
+        border-width: 0 4px 4px;
+        border-style: solid;
+        border-color: #fff #fff #f48570 #fff;
+        position: absolute;
+        right: 20px;
+        top: -4px
+    }
+
+</style>
+
+
+<div class="footer_nav_box">
+    <div class="footer_nav">
+        <a href="" target="_blank" rel="nofollow">公司简介</a><span class="sep">|</span>
+        <a href="" target="_blank">诚聘英才</a><span class="sep">|</span>
+        <a href="" target="_blank">手机特伦</a><span class="sep">|</span>
+        <a href="" target="_blank">网站联盟</a><span class="sep">|</span>
+        <a href="" target="_blank">特伦招商</a><span class="sep">|</span>
+        <a href="" target="_blank" rel="nofollow">机构销售</a><span class="sep">|</span>
+        <a href="" target="_blank">官方Blog</a>
+        <script>
+            var setTo = null;
+
+            function showghotsearch() {
+                clearTimeout(setTo);
+                document.getElementById("hot_search_content").style.display = "block";
+            }
+
+            function hidehotsearch() {
+                setTo = setTimeout(function () {
+                    document.getElementById("hot_search_content").style.display = "none";
+                }, 100)
+            }
+        </script>
+    </div>
+    <div class="footer_copyright"><span>Copyright (C) 特伦网 2004-2017, All Rights Reserved</span></div>
+    <div class="footer_copyright"><span><a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP证041189号</a></span><span
+            class="sep">|</span><span>出版物经营许可证 新出发京批字第直0673号</span><span class="sep">|</span><span>食品流通许可证：SP1101011010021855(1-1)</span><br><span>互联网药品信息服务资格证编号：(京)-非经营性-2012-0016</span><span
+            class="sep">|</span><span>京公网安备110101000001号</span></div>
+    <!-- 有三个icon的时候加footer_icon2 -->
+    <div class="footer_icon footer_icon2" style="padding-left: 55px;">
+        <div class="validator"><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001051000098"
+                                  target="_blank" class="footer_img"><img src="images/validate.gif"></a></div>
+        <div class="validator"><a href="http://bj429.com.cn/" target="_blank" class="footer_img"><img
+                src="images/7d593c48-48f6-4fc9-85e0-7d6e10dfc2a2.hpvgUvc9"></a></div>
+        <div class="validator"><a id="_pingansec_bottomimagesmall_brand"
+                                  href="http://si.trustutn.org/info?sn=302161014024825726885&amp;certType=1"
+                                  target="_blank"><img src="images/brand_128_47.png"></a></div>
+
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+<script type="text/javascript" src="../static/js/check_browse.js"></script>
+<script type="text/javascript">login_session.browsePageOperate();</script>
+<script type="text/javascript" src="../static/js/js_tracker.js"></script>
+<!--页尾 end -->
+<script type="text/javascript" src="../rcc.ddimg.cn/script/shumei.js"></script>
+<script type="text/javascript" src="../rcc.ddimg.cn/script/fpv2.js"></script>
+<script type="text/javascript" src="../static/js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../static/js/register_150706.js" charset="utf-8" language="JavaScript"></script>
+<script type="text/javascript">
+    set_robot();
+    window.onresize = function () {
+        set_robot();
+    }
+
+</script>
+<script>
+    var show_num = [];
+    draw(show_num);
+
+    function dj() {
+        draw(show_num);
+    }
+
+    function sublim() {
+        var val = document.getElementById("text").value;
+        var num = show_num.join("");
+        if (val == '') {
+            alert('请输入验证码！');
+        } else if (val == num) {
+            alert('注册成功！');
+            document.getElementById(".input-val").val('');
+            draw(show_num);
+
+        } else {
+            alert('验证码错误！\n你输入的是:  ' + val + "\n正确的是:  " + num + '\n请重新输入！');
+            document.getElementById("text").value = '';
+            draw(show_num);
+        }
+
+
+    }
+
+    function draw(show_num) {
+        var canvas_width = document.getElementById('canvas').clientWidth;
+        var canvas_height = document.getElementById('canvas').clientHeight;
+        var canvas = document.getElementById("canvas");//获取到canvas的对象，演员
+        var context = canvas.getContext("2d");//获取到canvas画图的环境，演员表演的舞台
+        canvas.width = canvas_width;
+        canvas.height = canvas_height;
+        var sCode = "A,B,C,E,F,G,H,J,K,L,M,N,P,Q,R,S,T,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0,q,w,e,r,t,y,u,i,o,p,a,s,d,f,g,h,j,k,l,z,x,c,v,b,n,m";
+        var aCode = sCode.split(",");
+        var aLength = aCode.length;//获取到数组的长度
+
+        for (var i = 0; i <= 3; i++) {
+            var j = Math.floor(Math.random() * aLength);//获取到随机的索引值
+            var deg = Math.random() * 30 * Math.PI / 180;//产生0~30之间的随机弧度
+            var txt = aCode[j];//得到随机的一个内容
+            show_num[i] = txt;
+            var x = 10 + i * 20;//文字在canvas上的x坐标
+            var y = 20 + Math.random() * 8;//文字在canvas上的y坐标
+            context.font = "bold 23px 微软雅黑";
+
+            context.translate(x, y);
+            context.rotate(deg);
+
+            context.fillStyle = randomColor();
+            context.fillText(txt, 0, 0);
+
+            context.rotate(-deg);
+            context.translate(-x, -y);
+        }
+        for (var i = 0; i <= 5; i++) { //验证码上显示线条
+            context.strokeStyle = randomColor();
+            context.beginPath();
+            context.moveTo(Math.random() * canvas_width, Math.random() * canvas_height);
+            context.lineTo(Math.random() * canvas_width, Math.random() * canvas_height);
+            context.stroke();
+        }
+        for (var i = 0; i <= 30; i++) { //验证码上显示小点
+            context.strokeStyle = randomColor();
+            context.beginPath();
+            var x = Math.random() * canvas_width;
+            var y = Math.random() * canvas_height;
+            context.moveTo(x, y);
+            context.lineTo(x + 1, y + 1);
+            context.stroke();
+        }
+    }
+
+    function randomColor() {//得到随机的颜色值
+        var r = Math.floor(Math.random() * 256);
+        var g = Math.floor(Math.random() * 256);
+        var b = Math.floor(Math.random() * 256);
+        return "rgb(" + r + "," + g + "," + b + ")";
+    }
+</script>
+<script type="text/javascript" src="../static/js/collect.js"></script>
+<script type="text/javascript" src="../static/js/store.js"></script>
+
+
+</body>
+</html>

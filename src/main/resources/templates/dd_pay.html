@@ -1,0 +1,252 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>订单结算</title>
+    <!--引用外部样式-->
+    <link type="text/css" rel="stylesheet" href="../static/css/basic.css">
+    <link type="text/css" rel="stylesheet" href="../static/css/web.css">
+</head>
+<body>
+
+<div id="TopMain">
+    <!-- 广告开始 -->
+    <div id="topAdv">
+        <a href="#"> <img src="../static/images/adv.jpg"/> </a>
+        <img src="../static/images/close.png" class="close"/>
+    </div>
+    <!-- 广告结束-->
+
+    <!--Top开始-->
+    <div id="Top">
+        <div class="banner"><a href="#"><img src="../static/images/DDlogoNEW.png"/></a></div>
+        <!--search begin-->
+        <!--search end-->
+        <div class="user">
+            <!--用户登录前状态
+            <font><span class="iconfont">&#xe60b;</span><a href="">登录</a></font>
+            <font><span class="iconfont">&#xe60e;</span><a href="">注册</a></font>-->
+
+
+            <!--用户登录后状态-->
+            您好！wlm123,欢迎你回来 <a class="usertxt">用户中心</a>｜<a href="" class="usertxt">退出</a>
+
+            <font><span class="iconfont">&#xe646;</span><a href="">加入购车</a></font>
+        </div>
+    </div>
+    <!--Top结束-->
+</div>
+<!--网站导航开始 -->
+<div id="Logo">
+</div>
+<!--网站导航结束-->
+
+
+<!--订单支付路径开始-->
+<div id="dd_address">
+    <ul>
+        <li>
+            <span class="but but_active">1</span>
+            <span class="txt txt_active">提交订单</span>
+            <span class="line line_active2"></span>
+        </li>
+        <li>
+            <span class="but but_active">2</span>
+            <span class="txt txt2 txt_active">确认订单并支付</span>
+            <span class="line line2 line_active"></span>
+        </li>
+        <li class="last">
+            <span class="but">3</span>
+            <span class="txt">已完成</span>
+        </li>
+    </ul>
+</div>
+<!--订单支付路径结束-->
+
+
+<!--商品列表开始-->
+<div class="goodsList">
+    <h3>商品列表 </h3>
+    <table id="orderList">
+        <thead>
+        <tr>
+            <th>商品名称</th>
+            <th>单价</th>
+            <th>购买数量</th>
+            <th>小计</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item:${orders}">
+            <td class="ti"><a th:text="${item.getOrderDetail().getBookname()}"></a></td>
+            <td th:text="${item.getOrderDetail().getPrice()}"></td>
+            <td th:text="${item.getOrderDetail().getCount()}"></td>
+            <td th:text="${item.getOrderDetail().getAmount()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<!--商品列表结束-->
+
+
+<!--商品列表开始-->
+<div id="UserInfo" class="goodsList">
+    <h3> 收货人信息 </h3>
+    <table id="userList">
+        <tr>
+            <td class="title">收货人姓名:</td>
+            <td th:text="${orders.get(0).getOrders().getUsername()}"></td>
+        </tr>
+        <tr>
+            <td class="title">详细地址:</td>
+            <td th:text="${orders.get(0).getOrders().getAddress()}"></td>
+        </tr>
+        <tr>
+            <td class="title">电话：</td>
+            <td th:text="${orders.get(0).getOrders().getPhone()}"></td>
+        </tr>
+
+    </table>
+</div>
+<!--商品列表结束-->
+
+
+<!--费用总计开始-->
+<div id="allMoney" class="goodsList">
+    <h3>费用总计 </h3>
+    <table>
+
+        <tr>
+            <td>应付款金额: <span id="total" th:text="${amount}"></span></td>
+        </tr>
+        <tr>
+            <td><a href="#"><input type="button" class="tj" value="提交订单"/></a></td>
+        </tr>
+
+    </table>
+</div>
+<!--费用总计结束-->
+
+<!--网站底部开始-->
+<img src="images/f.jpg" class="fbg"/>
+<div id="Footer2">
+    <dl class="first">
+        <dt><a href="#">关于我们</a></dt>
+        <dd><a href="#">诚聘英才</a></dd>
+        <dd><a href="#">品牌入驻</a></dd>
+        <dd><a href="#">友情链接</a></dd>
+    </dl>
+    <dl>
+        <dt><a href="#">关于我们</a></dt>
+        <dd><a href="#">诚聘英才</a></dd>
+        <dd><a href="#">品牌入驻</a></dd>
+        <dd><a href="#">友情链接</a></dd>
+    </dl>
+    <dl>
+        <dt>关于我们</dt>
+        <dd>诚聘英才</dd>
+        <dd>品牌入驻</dd>
+        <dd>友情链接</dd>
+    </dl>
+    <dl>
+        <dt>关于我们</dt>
+        <dd>诚聘英才</dd>
+        <dd>品牌入驻</dd>
+        <dd>友情链接</dd>
+    </dl>
+    <dl>
+        <dt>关于我们</dt>
+        <dd>诚聘英才</dd>
+        <dd>品牌入驻</dd>
+        <dd>友情链接</dd>
+    </dl>
+    <dl>
+        <dt>关于我们</dt>
+        <dd>诚聘英才</dd>
+        <dd>品牌入驻</dd>
+        <dd>友情链接</dd>
+    </dl>
+    <dl class="last">
+        <dt>客服在线</dt>
+        <dd>4006-600-000</dd>
+        <dd><img src="images/QQ.jpg"/></dd>
+    </dl>
+
+    <div style="clear:both"></div>
+</div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+
+</body>
+<!--<script>-->
+    <!--var setGooddata = document.getElementById('orderList');-->
+    <!--var setUserdata = document.getElementById('userList');-->
+    <!--var getorderData = localStorage.getItem("orderData");-->
+    <!--var orderData1 = JSON.parse(getorderData);-->
+    <!--var Userdata = [{-->
+        <!--user_name: "生日蛋糕",-->
+        <!--user_address: 1,-->
+        <!--user_id: 1,-->
+        <!--user_tellphone: 12345678910-->
+    <!--}]-->
+
+    <!--window.onload = function () {-->
+        <!--getGooddata();-->
+        <!--getUserdata();-->
+        <!--getAddup();-->
+    <!--}-->
+
+    <!--function setDiv(item) {-->
+        <!--var div = '<tr><td class="ti"><a>'-->
+            <!--+ item.good_name-->
+            <!--+ '</a></td><td>'-->
+            <!--+ item.market_price-->
+            <!--+ '</td><td>'-->
+            <!--+ item.good_num-->
+            <!--+ '</td><td>'-->
+            <!--+ parseInt(item.good_num) * parseInt(item.market_price)-->
+            <!--+ '</td></tr>';-->
+        <!--// <tr >-->
+        <!--// 		<td class="ti"><a>送给清心的生日蛋糕，红色的代表浪班套餐课程</a></td>-->
+        <!--// 		<td>￥1665.60元</td>-->
+        <!--// 		<td>2</td>-->
+        <!--// 		<td>0</td>-->
+        <!--// 	</tr>-->
+        <!--return div-->
+    <!--}-->
+
+    <!--//循环加载到页面-->
+    <!--function getGooddata() {-->
+        <!--var html = ''-->
+        <!--var tablehead = html += '<tr> <th>商品名称</th><th>单价</th><th>购买数量</th><th>小计</th></tr>'-->
+        <!--for (var i = 0; i < orderData1.length; i++) {-->
+            <!--html += setDiv(orderData1[i])-->
+        <!--}-->
+        <!--setGooddata.innerHTML = html;-->
+    <!--}-->
+
+    <!--function getUserdata() {-->
+        <!--var html2 = ''-->
+        <!--html2 += '<tr><td class="title">收货人姓名:</td><td>'-->
+            <!--+ Userdata[0].user_name-->
+            <!--+ '</td></tr><tr><td class="title">详细地址:</td><td>'-->
+            <!--+ Userdata[0].user_address-->
+            <!--+ '</td></tr><tr><td class="title">电话：</td><td>'-->
+            <!--+ Userdata[0].user_tellphone-->
+            <!--+ '</td></tr>';-->
+        <!--setUserdata.innerHTML = html2;-->
+    <!--}-->
+
+    <!--function getAddup() {-->
+        <!--var total = 0;-->
+        <!--for (var i = 0; i < orderData1.length; i++) {-->
+            <!--total = total + parseInt(orderData1[i].good_num) * parseInt(orderData1[i].market_price);-->
+        <!--}-->
+        <!--$("#total").html(total);-->
+    <!--}-->
+
+<!--</script>-->
+</html>

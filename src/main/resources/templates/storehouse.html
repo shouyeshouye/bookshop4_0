@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>后台</title>
+    <link rel="stylesheet" href="../static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">后台管理系统</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/admin/storehouse">我的仓库</a></li>
+                <li><a href="/admin/order">我的订单</a></li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li><a href="/logout" style="background-color: red">注销</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="table-responsive">
+    <table class="table" id="table">
+        <caption><h1 style="color: red">仓库</h1></caption>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>书名</th>
+            <th>大类</th>
+            <th>小类</th>
+            <th>作者</th>
+            <th>出版社</th>
+            <th>销量</th>
+            <th>价格</th>
+            <th>库存</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>产品1</td>
+            <td>待发货</td>
+            <td>产品1</td>
+            <td>23/11/2013</td>
+            <td>23/11/2013</td>
+            <td>待发货</td>
+            <td>产品1</td>
+
+            <td style="width: 150px">
+                <div class="col-lg-6" style="width: 150px">
+                    <div class="input-group input-group-sm">
+                        <input type="text" value="" class="form-control" id="1price">
+                        <span class="input-group-btn">
+            <button class="btn btn-default" type="button">提交</button>
+        </span>
+                    </div>
+                </div>
+            </td>
+
+            <td style="width: 150px">
+                <div class="col-lg-6" style="width: 150px">
+                    <div class="input-group input-group-sm">
+                        <input type="text" value="" class="form-control" id="1stock">
+                        <span class="input-group-btn">
+            <button class="btn btn-default" type="button">提交</button>
+        </span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#table").on("click", ":button", function (event) {
+            var id = $(this).closest("tr").find("td").eq(0).text();
+            var price = $(this).closest("tr").find("td").eq(7).find("input").val();
+            var stock = $(this).closest("tr").find("td").eq(8).find("input").val();
+            var targetUrl="/admin/bookupdate";
+            var data = new FormData();
+            //FormData对象加入参数
+            data.append('price',price);
+            data.append('stock',stock);
+            $.ajax({
+                type:'post',
+                url:targetUrl,
+                cache: false,
+                processData: false,
+                contentType: false,
+                data:data,
+                dataType:'json',
+                success:function(data){
+                    alert('修改成功');
+                },
+                error:function(){
+                    alert("修改失败")
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
